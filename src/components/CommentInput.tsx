@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useVideo } from '../context/VideoContext';
+import { useComment } from '../context/CommentContext';
+import { formatTimestamp } from '../utils/time';
 
 interface CommentInputProps {
   time: number;
@@ -8,7 +9,7 @@ interface CommentInputProps {
 }
 
 export default function CommentInput({ time, positionPercentage, onClose }: CommentInputProps) {
-  const { addComment } = useVideo();
+  const { addComment } = useComment();
   const [body, setBody] = useState('');
 
   const handlePost = () => {
@@ -30,10 +31,10 @@ export default function CommentInput({ time, positionPercentage, onClose }: Comm
       onClick={(e) => e.stopPropagation()}
     >
       {/* Floating Comment Box */}
-      <div className="bg-[#1A1C20] border border-primary/50 p-3 rounded-lg shadow-[0_10px_30px_rgba(0,0,0,0.8)] w-64 flex flex-col gap-2 relative">
+      <div className="bg-surface border border-primary/50 p-3 rounded-lg shadow-[0_10px_30px_rgba(0,0,0,0.8)] w-64 flex flex-col gap-2 relative">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(255,177,0,0.8)]"></div>
-          <span className="text-xs font-heading text-white">Add Comment at {time.toFixed(2)}s</span>
+          <span className="text-xs font-heading text-white">Add Comment at {formatTimestamp(time)}</span>
         </div>
         <textarea 
           autoFocus
@@ -45,7 +46,7 @@ export default function CommentInput({ time, positionPercentage, onClose }: Comm
               handlePost();
             }
           }}
-          className="w-full bg-[#121417] text-white text-sm p-2 rounded border border-white/10 focus:border-primary/50 focus:outline-none resize-none font-body shadow-inner"
+          className="w-full bg-base text-white text-sm p-2 rounded border border-white/10 focus:border-primary/50 focus:outline-none resize-none font-body shadow-inner"
           placeholder="Type your feedback..."
           rows={2}
         />
@@ -58,7 +59,7 @@ export default function CommentInput({ time, positionPercentage, onClose }: Comm
           </button>
           <button 
             onClick={handlePost}
-            className="bg-primary text-[#121417] font-body font-bold text-xs px-4 py-1.5 rounded hover:bg-primary/90 transition-colors shadow-md"
+            className="bg-primary text-base font-body font-bold text-xs px-4 py-1.5 rounded hover:bg-primary/90 transition-colors shadow-md"
           >
             Post
           </button>
@@ -68,10 +69,10 @@ export default function CommentInput({ time, positionPercentage, onClose }: Comm
       {/* Visual Connector / Tail */}
       <div className="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[10px] border-t-primary/50 mt-[-1px]"></div>
       {/* Inner tail to match background */}
-      <div className="absolute bottom-[2px] w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[9px] border-t-[#1A1C20]"></div>
+      <div className="absolute bottom-[2px] w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[9px] border-t-surface"></div>
       
       {/* Connecting dot to the timeline */}
-      <div className="w-2 h-2 mt-1 rounded-full bg-primary border-2 border-[#121417] shadow-[0_0_6px_rgba(255,177,0,0.8)]"></div>
+      <div className="w-2 h-2 mt-1 rounded-full bg-primary border-2 border-base shadow-[0_0_6px_rgba(255,177,0,0.8)]"></div>
     </div>
   );
 }

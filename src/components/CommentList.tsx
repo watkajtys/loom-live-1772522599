@@ -1,8 +1,9 @@
 import React from 'react';
-import { useVideo } from '../context/VideoContext';
+import { useComment } from '../context/CommentContext';
+import { formatTimestamp } from '../utils/time';
 
 export default function CommentList() {
-  const { comments } = useVideo();
+  const { comments } = useComment();
 
   return (
     <aside className="w-80 bg-base border-l border-neutral flex flex-col shrink-0 h-full overflow-hidden">
@@ -15,7 +16,7 @@ export default function CommentList() {
           <div key={comment.id} className="bg-neutral p-3 rounded-lg border border-white/5">
             <div className="flex items-center justify-between mb-2">
               <span className="font-semibold text-sm">{comment.author_name}</span>
-              <span className="text-xs font-heading text-secondary">{comment.timestamp.toFixed(2)}</span>
+              <span className="text-xs font-heading text-secondary">{formatTimestamp(comment.timestamp)}</span>
             </div>
             <p className="text-sm text-white/80">{comment.body}</p>
           </div>

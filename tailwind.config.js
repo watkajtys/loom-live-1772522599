@@ -11,6 +11,8 @@ export default {
         primary: '#FFB100',
         secondary: '#00E5FF',
         neutral: '#2A2E35',
+        surface: '#1A1C20',
+        surfaceDark: '#0A0B0D',
       },
       fontFamily: {
         heading: ['"JetBrains Mono"', 'monospace'],

@@ -19,13 +19,21 @@ test('Video Review page loads correctly', async ({ page }) => {
   const commentTicks = page.locator('.bg-secondary.z-10');
   await expect(commentTicks).toHaveCount(1); // the mock data has 1 comment
 
-  // Verify Floating Comment Input
+  // Verify Floating Comment Input - Timecode uses the new format HH:MM:SS
   const timeline = page.locator('.h-16.bg-neutral\\/50.rounded-md.relative');
   await timeline.click({ position: { x: 200, y: 10 } });
   
   const floatingInput = page.locator('text=Add Comment at');
   await expect(floatingInput).toBeVisible();
   await expect(page.locator('textarea[placeholder="Type your feedback..."]')).toBeVisible();
+
+  // Test adding a comment properly updates the state
+  const commentInput = page.locator('textarea[placeholder="Type your feedback..."]');
+  await commentInput.fill('This is a test comment');
+  await page.keyboard.press('Enter');
+
+  // We should have 2 comments now
+  await expect(page.locator('.bg-secondary.z-10')).toHaveCount(2);
 
   await page.screenshot({ path: 'evidence.png' });
 });

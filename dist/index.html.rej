@@ -1,0 +1,12 @@
+diff a/dist/index.html b/dist/index.html	(rejected hunks)
+@@ -7,8 +7,8 @@
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+-    <script type="module" crossorigin src="/assets/index-DvzfOI0E.js"></script>
+-    <link rel="stylesheet" crossorigin href="/assets/index-CW_8--x_.css">
++    <script type="module" crossorigin src="/assets/index-X6Giilg2.js"></script>
++    <link rel="stylesheet" crossorigin href="/assets/index-DK0woDPP.css">
+   </head>
+   <body>
+     <div id="root"></div>

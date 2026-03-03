@@ -1,9 +1,12 @@
 import React, { useRef, useMemo, useState } from 'react';
-import { useVideo } from '../context/VideoContext';
+import { usePlayback } from '../context/PlaybackContext';
+import { useComment } from '../context/CommentContext';
 import CommentInput from './CommentInput';
+import { formatTimestamp, calculateTimeFromClick } from '../utils/time';
 
 export default function Timeline() {
-  const { currentTime, setCurrentTime, duration, comments } = useVideo();
+  const { currentTime, setCurrentTime, duration } = usePlayback();
+  const { comments } = useComment();
   const timelineRef = useRef<HTMLDivElement>(null);
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [draftTime, setDraftTime] = useState(0);
@@ -14,11 +17,13 @@ export default function Timeline() {
 
   const handleTimelineClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!timelineRef.current) return;
-    const rect = timelineRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const percentage = (x / rect.width);
     
-    const newTime = percentage * duration;
+    const newTime = calculateTimeFromClick(
+      e.clientX,
+      timelineRef.current.getBoundingClientRect(),
+      duration
+    );
+    
     setCurrentTime(newTime);
     setDraftTime(newTime);
     setShowCommentInput(true);
@@ -38,7 +43,7 @@ export default function Timeline() {
             onClose={() => setShowCommentInput(false)}
           />
         )}
-        <span>00:00:{Math.floor(duration).toString().padStart(2, '0')}</span>
+        <span>{formatTimestamp(duration)}</span>
       </div>
       <div 
         ref={timelineRef}
