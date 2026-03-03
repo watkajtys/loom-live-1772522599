@@ -17,7 +17,7 @@ test('Video Review page loads correctly', async ({ page }) => {
 
   // Verify Comment Ticks presence
   const commentTicks = page.locator('.bg-secondary.z-10');
-  await expect(commentTicks).toHaveCount(3);
+  await expect(commentTicks).toHaveCount(1); // the mock data has 1 comment
 
   // Verify Floating Comment Input
   const timeline = page.locator('.h-16.bg-neutral.rounded-md.relative');
