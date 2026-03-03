@@ -12,7 +12,7 @@ test('Video Review page loads correctly', async ({ page }) => {
   await expect(page.locator('text=Comments')).toBeVisible();
   
   // Verify Audio Waveform presence
-  const waveformBars = page.locator('.h-16 .bg-white.rounded-full');
+  const waveformBars = page.locator('.h-16 .bg-white\\/80.rounded-full');
   await expect(waveformBars).toHaveCount(100);
 
   // Verify Comment Ticks presence
@@ -20,7 +20,7 @@ test('Video Review page loads correctly', async ({ page }) => {
   await expect(commentTicks).toHaveCount(1); // the mock data has 1 comment
 
   // Verify Floating Comment Input
-  const timeline = page.locator('.h-16.bg-neutral.rounded-md.relative');
+  const timeline = page.locator('.h-16.bg-neutral\\/50.rounded-md.relative');
   await timeline.click({ position: { x: 200, y: 10 } });
   
   const floatingInput = page.locator('text=Add Comment at');

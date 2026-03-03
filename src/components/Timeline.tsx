@@ -28,7 +28,7 @@ export default function Timeline() {
   const draftPositionPercentage = (draftTime / duration) * 100;
 
   return (
-    <div className="h-32 bg-base border-t border-neutral shrink-0 flex flex-col justify-center px-6">
+    <div className="relative shrink-0 flex flex-col justify-center w-full">
       <div className="flex items-center justify-between text-xs font-heading text-secondary mb-2 relative">
         <span>00:00:00</span>
         {showCommentInput && (
@@ -43,15 +43,15 @@ export default function Timeline() {
       <div 
         ref={timelineRef}
         onClick={handleTimelineClick}
-        className="h-16 bg-neutral rounded-md relative overflow-hidden group cursor-pointer"
+        className="h-16 bg-neutral/50 rounded-md relative overflow-hidden group cursor-pointer"
       >
-        {/* Audio Waveform */}
-        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-between px-1 space-x-[1px] opacity-40 pointer-events-none">
+        {/* Audio Waveform - variable width bars */}
+        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-between px-2 space-x-0.5 opacity-60 pointer-events-none">
           {waveformData.map((height, i) => (
             <div
               key={i}
-              className="flex-1 bg-white rounded-full"
-              style={{ height: `${height}%` }}
+              className="flex-1 bg-white/80 rounded-full transition-all duration-300"
+              style={{ height: `${height}%`, minWidth: '1px', maxWidth: '3px' }}
             ></div>
           ))}
         </div>
@@ -62,22 +62,24 @@ export default function Timeline() {
           return (
             <div 
               key={comment.id}
-              className="absolute top-0 h-full w-[2px] bg-secondary z-10 shadow-[0_0_4px_rgba(0,229,255,0.8)] cursor-pointer hover:bg-white transition-colors"
+              className="absolute top-0 h-full w-[2px] bg-secondary z-10 shadow-[0_0_6px_rgba(0,229,255,1)] cursor-pointer hover:bg-white transition-colors hover:w-[3px] -translate-x-[1px]"
               style={{ left: `${tickPosition}%` }}
             ></div>
           );
         })}
 
+        {/* Playhead Progress Overlay */}
         <div 
-          className="absolute top-0 left-0 h-full bg-white/20 pointer-events-none"
+          className="absolute top-0 left-0 h-full bg-primary/10 pointer-events-none"
           style={{ width: `${playheadPositionPercentage}%` }}
         ></div>
         
+        {/* Playhead */}
         <div 
-          className="absolute top-0 h-full w-0.5 bg-primary group-hover:bg-primary/80 transition-colors z-20 pointer-events-none"
+          className="absolute top-0 h-full w-0.5 bg-primary group-hover:bg-primary/80 transition-colors z-20 pointer-events-none shadow-[0_0_8px_rgba(255,177,0,0.8)] -translate-x-[1px]"
           style={{ left: `${playheadPositionPercentage}%` }}
         >
-          <div className="absolute -top-1 -translate-x-1/2 w-3 h-3 bg-primary rounded-full"></div>
+          <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3.5 h-3.5 bg-primary rounded-full border-2 border-base"></div>
         </div>
       </div>
     </div>
